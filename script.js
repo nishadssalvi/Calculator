@@ -1,128 +1,26 @@
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ec9778, #ffffff);
-   
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  h1 {
-    margin-top: 30px;  
-    margin-bottom: 15px;
-    font-size: 40px;
-    background: linear-gradient(90deg, #ff6a00, #ee0979, #00c6ff);
-    background-size: 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeIn 1s ease-in-out, move 8s infinite linear;
+const resultInput = document.getElementById("result");
+
+// Append value to the display
+function appendValue(value) {
+  if (resultInput.value === "Error") resultInput.value = ""; // Reset on error
+  resultInput.value += value;
 }
 
-  @keyframes move {
-    0% { background-position: 0%; }
-    100% { background-position: 300%; }
-  }
+// Clear the display
+function clearDisplay() {
+  resultInput.value = "";
+}
 
-  h1:hover {
-    transform: scale(1.05);
-    transition: 0.3s;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+// Delete the last character
+function deleteLast() {
+  resultInput.value = resultInput.value.slice(0, -1);
+}
 
-
-  /* Calculator Container */
-  .calculator {
-    background: #1c1a19;
-    width: 300px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+// Calculate the result
+function calculate() {
+  try {
+    resultInput.value = eval(resultInput.value) || ""; // Evaluate safely
+  } catch (error) {
+    resultInput.value = "Error";
   }
-  
-  /* Display */
-  .display {
-    margin-bottom: 20px;
-  }
-  
-  .display input {
-    width: 100%;
-    height: 60px;
-    font-size: 1.8rem;
-    border: none;
-    text-align: right;
-    padding: 1pmarx;
-    border-radius: 8px;
-    background: #f5f5f5;
-    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Buttons Grid */
-  .buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-  
-  /* Buttons */
-  button {
-    height: 60px;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  /* Numeric Buttons */
-  button.btn {
-    background: #f0f0f0;
-    color: #333;
-  }
-  
-  button.btn:hover {
-    background: #e0e0e0;
-  }
-  
-  /* Operator Buttons */
-  button.operator {
-    background: #ff9500;
-    color: white;
-  }
-  
-  button.operator:hover {
-    background: #e08600;
-  }
-  
-  /* Equal Button */
-  button.equal {
-    background: #4caf50;
-    color: white;
-    grid-column: span 1;
-  }
-  
-  button.equal:hover {
-    background: #3e8e41;
-  }
-  
-  /* Clear Button */
-  button.operator:nth-child(1) {
-    background: #f44336;
-  }
-  
-  button.operator:nth-child(1):hover {
-    background: #d32f2f;
-  }
-  
+}
